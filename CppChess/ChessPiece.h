@@ -3,7 +3,7 @@ namespace CppChess
 {
 	struct ChessPiece
 	{
-        #pragma region Static Fields
+        #pragma region Static Fields and Methods
     public :
         __forceinline static const ChessPiece None() { return s_none; }
         __forceinline static const ChessPiece Pawn() { return s_pawn; }
@@ -14,6 +14,8 @@ namespace CppChess
         __forceinline static const ChessPiece King() { return s_king; }
         __forceinline static const ChessPiece White() { return s_white; }
         __forceinline static const ChessPiece Black() { return s_black; }
+
+        static const bool HaveSameColor(const ChessPiece& a, const ChessPiece& b);
 
     private:
         static const ChessPiece s_none;
@@ -28,6 +30,10 @@ namespace CppChess
     #pragma endregion
 
     public:
+        __forceinline bool HasFlag(const ChessPiece flag) const;
+
+        __forceinline bool IsEmpty() const { return m_value == 0; }
+
         __forceinline bool IsPawn() const { return HasFlag(s_pawn); }
         __forceinline bool IsBishop() const { return HasFlag(s_bishop); }
         __forceinline bool IsKnight() const { return HasFlag(s_knight); }
@@ -52,8 +58,6 @@ namespace CppChess
     public:
         ChessPiece(const ChessPiece& other);
 
-        bool HasFlag(ChessPiece flag) const;
-
         bool IsPieceTypeOnly() const;
         bool IsColorOnly() const;
 
@@ -65,11 +69,11 @@ namespace CppChess
         bool IsValidCompositePiece() const;
 
         // Operators
-        bool operator ==(ChessPiece other) const;
-        bool operator !=(ChessPiece other) const;
-        ChessPiece operator |(ChessPiece other) const;
-        ChessPiece operator &(ChessPiece other) const;
-        ChessPiece operator ^(ChessPiece other) const;
+        bool operator ==(const ChessPiece other) const;
+        bool operator !=(const ChessPiece other) const;
+        ChessPiece operator |(const ChessPiece other) const;
+        ChessPiece operator &(const ChessPiece other) const;
+        ChessPiece operator ^(const ChessPiece other) const;
         ChessPiece operator ~() const;
 	};
 }

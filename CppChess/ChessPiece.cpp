@@ -22,7 +22,12 @@ namespace CppChess
 		m_value = other.GetValue();
 	}
 
-	bool ChessPiece::HasFlag(ChessPiece flag) const
+	const bool ChessPiece::HaveSameColor(const ChessPiece& a, const ChessPiece& b)
+	{
+		return (a & (s_white | s_black)) == (b & (s_white | s_black));
+	}
+
+	bool ChessPiece::HasFlag(const ChessPiece flag) const
 	{
 		return (*this & flag) == flag;
 	}
