@@ -12,9 +12,25 @@ namespace CppChess
 	const ChessPiece ChessPiece::s_white = ChessPiece(1 << 6);
 	const ChessPiece ChessPiece::s_black = ChessPiece(1 << 7);
 
+	const ChessPiece ChessPiece::s_pieceTypeMask =
+		ChessPiece::s_pawn |
+		ChessPiece::s_bishop |
+		ChessPiece::s_knight |
+		ChessPiece::s_rook |
+		ChessPiece::s_queen |
+		ChessPiece::s_king;
+
+	const ChessPiece ChessPiece::s_colorMask =
+		ChessPiece::s_black |
+		ChessPiece::s_white;
+
 	ChessPiece::ChessPiece(int value)
 	{
 		m_value = value;
+	}
+
+	ChessPiece::ChessPiece() : ChessPiece(0)
+	{
 	}
 
 	ChessPiece::ChessPiece(const ChessPiece& other)
@@ -53,6 +69,16 @@ namespace CppChess
 		return IsColorOnly() || IsPieceTypeOnly();
 	}
 
+	bool ChessPiece::HasColor() const
+	{
+		return (*this | s_colorMask) != s_none;
+	}
+
+	bool ChessPiece::HasPieceType() const
+	{
+		return (*this | s_pieceTypeMask) != s_none;
+	}
+
 	bool ChessPiece::HasSingleColor() const
 	{
 		return IsWhite() ^ IsBlack();
@@ -73,6 +99,18 @@ namespace CppChess
 	bool ChessPiece::IsValidCompositePiece() const
 	{
 		return HasSingleColor() && HasSinglePieceType();
+	}
+
+	bool ChessPiece::ShareColorWith(const ChessPiece& other) const
+	{
+		ChessPiece combination = *this & other;
+		return combination.HasColor();
+	}
+
+	bool ChessPiece::SharePieceTypeWith(const ChessPiece& other) const
+	{
+		ChessPiece combination = *this & other;
+		return combination.HasPieceType();
 	}
 
 	bool ChessPiece::operator ==(ChessPiece other) const

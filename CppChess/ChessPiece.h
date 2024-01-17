@@ -27,6 +27,9 @@ namespace CppChess
         static const ChessPiece s_king;
         static const ChessPiece s_white;
         static const ChessPiece s_black;
+
+        static const ChessPiece s_pieceTypeMask;
+        static const ChessPiece s_colorMask;
     #pragma endregion
 
     public:
@@ -53,9 +56,9 @@ namespace CppChess
     private:
         ChessPiece(int value);
 
-        ChessPiece() = delete;
-
     public:
+
+        ChessPiece();
         ChessPiece(const ChessPiece& other);
 
         bool IsPieceTypeOnly() const;
@@ -63,10 +66,16 @@ namespace CppChess
 
         bool IsPureType() const;
 
+        bool HasColor() const;
+        bool HasPieceType() const;
+
         bool HasSingleColor() const;
         bool HasSinglePieceType() const;
 
         bool IsValidCompositePiece() const;
+
+        bool ShareColorWith(const ChessPiece& other) const;
+        bool SharePieceTypeWith(const ChessPiece& other) const;
 
         // Operators
         bool operator ==(const ChessPiece other) const;
