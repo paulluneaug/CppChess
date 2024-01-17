@@ -4,8 +4,10 @@
 #include <memory>
 #include <string>
 #include <iostream>
+
 #include "ChessPiece.h"
 #include "Debug.h"
+#include "Utils/Utils.h"
 
 
 namespace CppChess
@@ -32,6 +34,8 @@ namespace CppChess
         __forceinline int Height() { return m_height; }
         __forceinline int Width() { return m_width; }
         __forceinline int Size() { return m_size; }
+
+        __forceinline bool ContainsTile(int piecePosition) { return Utils::IsBetween(piecePosition, 0, m_size - 1); }
 
         __forceinline ChessPiece operator[](int index);
 
