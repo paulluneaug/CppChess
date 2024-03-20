@@ -15,27 +15,25 @@ namespace CppChess
 	class Board
 	{
     private:
-        static const int m_width = 8;
-        static const int m_height = 8;
+        static const int WIDTH = 8;
+        static const int HEIGHT = 8;
 
-        static const int m_size = m_height * m_width;
+        static const int SIZE = HEIGHT * WIDTH;
 
         const std::string m_defaultStartConfiguration = "P1p1P1p1P1p1P1p1P1p1P1p1P1p1P1p1P1p1P1p1P1p1P1p1P1p1P1p1P1p1P1p1";
         //private const string m_defaultStartConfiguration = "rnbkqbnrpppppppp32PPPPPPPPPRNBKQBNR";
 
-        ChessPiece m_board[m_size];
-
-
+        ChessPiece m_board[SIZE];
 
     public:
         Board();
         Board(std::string startConfiguration);
 
-        __forceinline int Height() const { return m_height; }
-        __forceinline int Width() const { return m_width; }
-        __forceinline int Size() const { return m_size; }
+        __forceinline int Height() const { return HEIGHT; }
+        __forceinline int Width() const { return WIDTH; }
+        __forceinline int Size() const { return SIZE; }
 
-        __forceinline bool ContainsTile(int piecePosition) const { return Utils::IsBetween(piecePosition, 0, m_size - 1); }
+        __forceinline bool ContainsTile(int piecePosition) const { return Utils::IsBetween(piecePosition, 0, SIZE - 1); }
 
         ChessPiece operator[](int index) const;
 

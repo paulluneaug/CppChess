@@ -16,7 +16,7 @@ namespace CppChess
 
     ChessPiece Board::operator[](int index) const
     {
-        if (index < m_size)
+        if (index < SIZE)
         {
             return m_board[index];
         }
@@ -65,7 +65,7 @@ namespace CppChess
                 int offsetToApply = std::stoi(number);
                 for (int j = 0; j < offsetToApply; ++j)
                 {
-                    if (offset >= m_size)
+                    if (offset >= SIZE)
                     {
                         Debug::LogError("Board overflow : " + offset);
                     }
@@ -77,7 +77,7 @@ namespace CppChess
             }
             else
             {
-                if (offset >= m_size)
+                if (offset >= SIZE)
                 {
                     Debug::LogError("Board overflow : " + offset);
                 }
@@ -133,12 +133,12 @@ namespace CppChess
     std::string Board::GetBoardRepresentationString()
     {
         std::string result = "";
-        for (int i = 0; i < m_size; ++i)
+        for (int i = 0; i < SIZE; ++i)
         {
             if (m_board[i] == ChessPiece::None())
             {
                 int contiguousNoneTileCount = 0;
-                while (i < m_size && m_board[i] == ChessPiece::None())
+                while (i < SIZE && m_board[i] == ChessPiece::None())
                 {
                     ++i;
                     ++contiguousNoneTileCount;
