@@ -2,15 +2,25 @@
 
 namespace CppChess 
 {
-	const ChessPiece ChessPiece::s_none = ChessPiece(0);
-	const ChessPiece ChessPiece::s_pawn = ChessPiece(1 << 0);
-	const ChessPiece ChessPiece::s_bishop = ChessPiece(1 << 1);
-	const ChessPiece ChessPiece::s_knight = ChessPiece(1 << 2);
-	const ChessPiece ChessPiece::s_rook = ChessPiece(1 << 3);
-	const ChessPiece ChessPiece::s_queen = ChessPiece(1 << 4);
-	const ChessPiece ChessPiece::s_king = ChessPiece(1 << 5);
-	const ChessPiece ChessPiece::s_white = ChessPiece(1 << 6);
-	const ChessPiece ChessPiece::s_black = ChessPiece(1 << 7);
+	const int ChessPiece::s_noneOffset   = 0;
+	const int ChessPiece::s_pawnOffset   = 1;
+	const int ChessPiece::s_bishopOffset = 2;
+	const int ChessPiece::s_knightOffset = 3;
+	const int ChessPiece::s_rookOffset   = 4;
+	const int ChessPiece::s_queenOffset  = 5;
+	const int ChessPiece::s_kingOffset   = 6;
+	const int ChessPiece::s_whiteOffset  = 7;
+	const int ChessPiece::s_blackOffset  = 8;
+
+	const ChessPiece ChessPiece::s_none   = ChessPiece(1 << s_noneOffset - 1);
+	const ChessPiece ChessPiece::s_pawn   = ChessPiece(1 << s_pawnOffset - 1);
+	const ChessPiece ChessPiece::s_bishop = ChessPiece(1 << s_bishopOffset - 1);
+	const ChessPiece ChessPiece::s_knight = ChessPiece(1 << s_knightOffset - 1);
+	const ChessPiece ChessPiece::s_rook   = ChessPiece(1 << s_rookOffset - 1);
+	const ChessPiece ChessPiece::s_queen  = ChessPiece(1 << s_queenOffset - 1);
+	const ChessPiece ChessPiece::s_king   = ChessPiece(1 << s_kingOffset - 1);
+	const ChessPiece ChessPiece::s_white  = ChessPiece(1 << s_whiteOffset - 1);
+	const ChessPiece ChessPiece::s_black  = ChessPiece(1 << s_blackOffset - 1);
 
 	const ChessPiece ChessPiece::s_pieceTypeMask =
 		ChessPiece::s_pawn |
@@ -50,18 +60,12 @@ namespace CppChess
 
 	bool ChessPiece::IsColorOnly() const
 	{
-		return *this == s_black ||
-			*this == s_white;
+		return (*this & s_pieceTypeMask).IsEmpty();
 	}
 
 	bool ChessPiece::IsPieceTypeOnly() const
 	{
-		return *this == s_pawn ||
-			*this == s_bishop ||
-			*this == s_knight ||
-			*this == s_rook ||
-			*this == s_queen ||
-			*this == s_king;
+		return (*this & s_colorMask).IsEmpty();
 	}
 
 	bool ChessPiece::IsPureType() const
@@ -71,12 +75,12 @@ namespace CppChess
 
 	bool ChessPiece::HasColor() const
 	{
-		return (*this | s_colorMask) != s_none;
+		return (*this & s_colorMask) != s_none;
 	}
 
 	bool ChessPiece::HasPieceType() const
 	{
-		return (*this | s_pieceTypeMask) != s_none;
+		return (*this & s_pieceTypeMask) != s_none;
 	}
 
 	bool ChessPiece::HasSingleColor() const
@@ -86,13 +90,14 @@ namespace CppChess
 	
 	bool ChessPiece::HasSinglePieceType() const
 	{
-		int flagCount = 0;
-		if (IsPawn()) { flagCount++; }
-		if (IsBishop()) { flagCount++; }
-		if (IsKnight()) { flagCount++; }
-		if (IsRook()) { flagCount++; }
-		if (IsQueen()) { flagCount++; }
-		if (IsKing()) { flagCount++; }
+		int flagCount =
+			((*this & s_pawn) >> (s_pawnOffset - 1)).GetValue() +
+			((*this & s_bishop) >> (s_bishopOffset - 1)).GetValue() +
+			((*this & s_knight) >> (s_knightOffset - 1)).GetValue() +
+			((*this & s_rook) >> (s_rookOffset - 1)).GetValue() +
+			((*this & s_queen) >> (s_queenOffset - 1)).GetValue() +
+			((*this & s_king) >> (s_kingOffset - 1)).GetValue();
+
 		return flagCount == 1;
 	}        
 	
@@ -141,5 +146,15 @@ namespace CppChess
 	ChessPiece ChessPiece::operator ~() const
 	{
 		return ChessPiece(~m_value);
+	}
+
+	ChessPiece ChessPiece::operator>>(const int offset) const
+	{
+		return ChessPiece(m_value >> offset);
+	}
+
+	ChessPiece ChessPiece::operator<<(const int offset) const
+	{
+		return ChessPiece(m_value << offset);
 	}
 }
