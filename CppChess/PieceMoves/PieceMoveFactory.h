@@ -9,7 +9,7 @@ namespace CppChess
 {
 	static class PieceMoveFactory
 	{
-		using MoveArray = std::vector<std::shared_ptr<IPieceMove>>;
+		using MoveArray = std::vector<std::unique_ptr<IPieceMove>>;
 
 	private:
 		static int KNIGHT_MOVES_OFFSETS[];
@@ -20,6 +20,8 @@ namespace CppChess
 		static bool GetPieceMoves(Board& board, int piecePosition, MoveArray& o_pieceMoves);
 
 	private:
+		__forceinline static std::unique_ptr<IPieceMove> CreateMove(Board& board, int startTile, int endTile, bool killingMove, int killedPieceTile = -1);
+
 		static bool GetPawnMoves(Board& board, int piecePosition, MoveArray& o_pawnMoves);		
 		static bool GetBishopMoves(Board& board, int piecePosition, MoveArray& o_bishopMoves);
 		static bool GetKnightMoves(Board& board, int piecePosition, MoveArray& o_knightMoves);

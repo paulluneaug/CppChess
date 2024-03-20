@@ -60,6 +60,11 @@ namespace CppChess
 		return false;
 	}
 
+	std::unique_ptr<IPieceMove> PieceMoveFactory::CreateMove(Board& board, int startTile, int endTile, bool killingMove, int killedPieceTile)
+	{
+		return std::move(std::make_unique<PieceMove>(board, startTile, endTile, killingMove, killedPieceTile));
+	}
+
 	bool PieceMoveFactory::GetPawnMoves(Board& board, int piecePosition, MoveArray& o_pawnMoves)
 	{
 		ChessPiece pawn = board[piecePosition];
@@ -134,11 +139,11 @@ namespace CppChess
 			}
 			if (target.IsEmpty())
 			{
-				o_pieceMoves.push_back(std::make_shared<PieceMove>(board, piecePosition, targetPosition, false));
+				o_pieceMoves.push_back(std::move(CreateMove(board, piecePosition, targetPosition, false)));
 			}
 			else
 			{
-				o_pieceMoves.push_back(std::make_shared<PieceMove>(board, piecePosition, targetPosition, true));
+				o_pieceMoves.push_back(std::move(CreateMove(board, piecePosition, targetPosition, true)));
 			}
 			return true;
 		}
@@ -157,11 +162,11 @@ namespace CppChess
 			}
 			if (target.IsEmpty())
 			{
-				o_pieceMoves.push_back(std::make_shared<PieceMove>(board, piecePosition, targetPosition, false));
+				o_pieceMoves.push_back(std::move(CreateMove(board, piecePosition, targetPosition, false)));
 			}
 			else
 			{
-				o_pieceMoves.push_back(std::make_shared<PieceMove>(board, piecePosition, targetPosition, true));
+				o_pieceMoves.push_back(std::move(CreateMove(board, piecePosition, targetPosition, true)));
 			}
 			return true;
 		}
