@@ -14,7 +14,7 @@ namespace CppChess
         Initialize(startConfiguration);
     }
 
-    ChessPiece Board::operator[](int index)
+    ChessPiece Board::operator[](int index) const
     {
         if (index < m_size)
         {
@@ -44,11 +44,8 @@ namespace CppChess
         LoadConfiguration(startConfiguration);
     }
 
-    void Board::LoadConfiguration(std::string configuration) {
-        m_board = std::vector<ChessPiece>{};
-        int boardSize = m_height * m_width;
-        m_board.reserve(boardSize);
-
+    void Board::LoadConfiguration(std::string configuration) 
+    {
         int offset = 0;
         int configSize = configuration.size();
         for (int i = 0; i < configSize; ++i)
@@ -68,7 +65,7 @@ namespace CppChess
                 int offsetToApply = std::stoi(number);
                 for (int j = 0; j < offsetToApply; ++j)
                 {
-                    if (offset >= boardSize)
+                    if (offset >= m_size)
                     {
                         Debug::LogError("Board overflow : " + offset);
                     }
@@ -80,7 +77,7 @@ namespace CppChess
             }
             else
             {
-                if (offset >= boardSize)
+                if (offset >= m_size)
                 {
                     Debug::LogError("Board overflow : " + offset);
                 }
@@ -130,19 +127,18 @@ namespace CppChess
             return ' ';
         }
         char pieceType = GetPieceType(chessPiece);
-        return chessPiece.IsBlack() ? pieceType : pieceType; // @TODO upper
+        return chessPiece.IsBlack() ? pieceType : ToUpper(pieceType); // @TODO upper
     }
 
     std::string Board::GetBoardRepresentationString()
     {
         std::string result = "";
-        int boardSize = m_board.size();
-        for (int i = 0; i < boardSize; ++i)
+        for (int i = 0; i < m_size; ++i)
         {
             if (m_board[i] == ChessPiece::None())
             {
                 int contiguousNoneTileCount = 0;
-                while (i < boardSize && m_board[i] == ChessPiece::None())
+                while (i < m_size && m_board[i] == ChessPiece::None())
                 {
                     ++i;
                     ++contiguousNoneTileCount;
@@ -170,19 +166,6 @@ namespace CppChess
         return ' ';
     }
 
-    std::ostream& Board::operator<<(std::ostream& stream)
-    {
-        for (int y = 0; y < m_height; y++)
-        {
-            for (int x = 0; x < m_width; x++)
-            {
-                stream << GetPieceRepresentationString(m_board[x + y * m_width]) << ' ';
-            }
-            stream << "\n";
-        }
-        return stream;
-    }
-
     bool Board::IsDigit(char c)
     {
         return '0' <= c && c <= '9';
@@ -191,6 +174,22 @@ namespace CppChess
     char Board::ToLower(char c)
     {
         return static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+    }
+    char Board::ToUpper(char c)
+    {
+        return static_cast<char>(std::toupper(static_cast<unsigned char>(c)));
+    }
+    std::ostream& operator<<(std::ostream& stream, const Board& board)
+    {
+        for (int y = 0; y < board.Height(); y++)
+        {
+            for (int x = 0; x < board.Width(); x++)
+            {
+                stream << board.GetPieceRepresentationString(board[x + y * board.Width()]) << ' ';
+            }
+            stream << "\n";
+        }
+        return stream;
     }
 };
 
