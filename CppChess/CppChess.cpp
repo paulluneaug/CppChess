@@ -3,6 +3,10 @@
 
 #include "framework.h"
 #include "CppChess.h"
+#include "ChessPiece.h"
+#include "Board.h"
+
+using namespace CppChess;
 
 #define MAX_LOADSTRING 100
 
@@ -26,6 +30,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     // TODO: Placez le code ici.
+    Board b = Board{};
 
     // Initialise les chaînes globales
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
