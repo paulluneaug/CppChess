@@ -127,13 +127,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Board.h" />
+    <ClInclude Include="ChessPiece.h" />
     <ClInclude Include="CppChess.h" />
+    <ClInclude Include="Debug.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="PieceMoves\MoveStack.h" />
+    <ClInclude Include="PieceMoves\CastleMove.h" />
+    <ClInclude Include="PieceMoves\IPieceMove.h" />
+    <ClInclude Include="PieceMoves\PieceMove.h" />
+    <ClInclude Include="PieceMoves\PieceMoveFactory.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Utils\Utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Board.cpp" />
+    <ClCompile Include="ChessPiece.cpp" />
     <ClCompile Include="CppChess.cpp" />
+    <ClCompile Include="PieceMoves\MoveStack.cpp" />
+    <ClCompile Include="PieceMoves\CastleMove.cpp" />
+    <ClCompile Include="PieceMoves\IPieceMove.cpp" />
+    <ClCompile Include="PieceMoves\PieceMove.cpp" />
+    <ClCompile Include="PieceMoves\PieceMoveFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CppChess.rc" />
