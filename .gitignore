@@ -53,21 +53,21 @@
 mono_crash.*
 
 # Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-[Ww][Ii][Nn]32/
-[Aa][Rr][Mm]/
-[Aa][Rr][Mm]64/
-bld/
-[Bb]in/
-[Oo]bj/
-[Oo]ut/
-[Ll]og/
-[Ll]ogs/
+CppChess/[Dd]ebug/
+CppChess/[Dd]ebugPublic/
+CppChess/[Rr]elease/
+CppChess/[Rr]eleases/
+CppChess/x64/
+CppChess/x86/
+CppChess/[Ww][Ii][Nn]32/
+CppChess/[Aa][Rr][Mm]/
+CppChess/[Aa][Rr][Mm]64/
+CppChess/bld/
+CppChess/[Bb]in/
+CppChess/[Oo]bj/
+CppChess/[Oo]ut/
+CppChess/[Ll]og/
+CppChess/[Ll]ogs/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
