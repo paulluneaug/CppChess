@@ -39,23 +39,22 @@ namespace CppChess
         return targetTile;
     }
 
-    void Board::Initialize(std::string startConfiguration)
+    void Board::Initialize(const std::string& startConfiguration)
     {
         LoadConfiguration(startConfiguration);
     }
 
-    void Board::LoadConfiguration(std::string configuration) 
+    void Board::LoadConfiguration(const std::string& configuration)
     {
         int offset = 0;
         int configSize = configuration.size();
         for (int i = 0; i < configSize; ++i)
         {
             char currentChar = configuration[i];
-            //std::isdigit
-            if (IsDigit(currentChar))
+            if (Utils::IsDigit(currentChar))
             {
-                std::string number = std::string{ currentChar };// currentChar.ToString();
-                while (i < configSize - 1 && IsDigit(configuration[i + 1]))
+                std::string number = std::string{ currentChar };
+                while (i < configSize - 1 && Utils::IsDigit(configuration[i + 1]))
                 {
                     //i++;
                     currentChar = configuration[++i];
@@ -83,7 +82,7 @@ namespace CppChess
                 }
                 else
                 {
-                    m_board[offset++] = GetPiece(currentChar/*.ToString().ToLower().ToCharArray().First()*/);
+                    m_board[offset++] = GetPiece(currentChar);
                 }
             }
         }
@@ -91,7 +90,7 @@ namespace CppChess
 
     ChessPiece Board::GetPiece(char identifier)
     {
-        char lowerIdentifier = ToLower(identifier);
+        char lowerIdentifier = Utils::ToLower(identifier);
         bool isLowerCase = lowerIdentifier == identifier;
         ChessPiece color = isLowerCase ? ChessPiece::Black() : ChessPiece::White();
 
@@ -127,7 +126,7 @@ namespace CppChess
             return ' ';
         }
         char pieceType = GetPieceType(chessPiece);
-        return chessPiece.IsBlack() ? pieceType : ToUpper(pieceType); // @TODO upper
+        return chessPiece.IsBlack() ? pieceType : Utils::ToUpper(pieceType); // @TODO upper
     }
 
     std::string Board::GetBoardRepresentationString()
@@ -166,19 +165,6 @@ namespace CppChess
         return ' ';
     }
 
-    bool Board::IsDigit(char c)
-    {
-        return '0' <= c && c <= '9';
-    }
-
-    char Board::ToLower(char c)
-    {
-        return static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
-    }
-    char Board::ToUpper(char c)
-    {
-        return static_cast<char>(std::toupper(static_cast<unsigned char>(c)));
-    }
     std::ostream& operator<<(std::ostream& stream, const Board& board)
     {
         for (int y = 0; y < board.Height(); y++)

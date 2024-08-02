@@ -5,24 +5,24 @@
 
 namespace CppChess 
 {
-	class PieceMove : public IPieceMove
-	{
-	private:
-		int m_startTile;
-		int m_endTile;
+    class PieceMove : public IPieceMove
+    {
+    private:
+        int m_startTile;
+        int m_endTile;
 
-		bool m_killingMove;
-		int m_killedPiecePosition;
-		ChessPiece m_killedPiece;
+        bool m_killingMove;
+        int m_killedPiecePosition;
+        ChessPiece m_killedPiece;
 
-		bool m_done;
+        bool m_done;
 
-	public:
+    public:
 
-		PieceMove(Board& board, int startTile, int endTile, bool killingMove, int killedPieceTile = -1);
+        PieceMove(Board& board, int startTile, int endTile, bool killingMove, int killedPieceTile = -1);
 
-		virtual void Do(Board& board);
-		virtual void Undo(Board& board);
-	};
+        virtual void Do(Board& board);
+        virtual void Undo(Board& board);
+    };
 }
 

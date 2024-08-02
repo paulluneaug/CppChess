@@ -6,18 +6,18 @@
 
 namespace CppChess 
 {
-	class MoveStack
-	{
-	private:
-		std::stack<std::unique_ptr<IPieceMove>> m_moveStack;
+    class MoveStack
+    {
+    private:
+        std::stack<std::unique_ptr<IPieceMove>> m_moveStack;
 
-	public:
-		MoveStack();
+    public:
+        MoveStack();
 
-		void AddMove(std::unique_ptr<IPieceMove>);
-		std::unique_ptr<IPieceMove> PopMove();
+        void AddMove(std::unique_ptr<IPieceMove>);
+        std::unique_ptr<IPieceMove> PopMove();
 
-		bool IsEmpty() const;
-	};
+        bool IsEmpty() const;
+    };
 }
 

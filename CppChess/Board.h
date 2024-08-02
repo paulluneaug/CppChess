@@ -14,12 +14,13 @@ namespace CppChess
 {
 	class Board
 	{
-    private:
+    public:
         static const int WIDTH = 8;
         static const int HEIGHT = 8;
 
         static const int SIZE = HEIGHT * WIDTH;
 
+    private:
         const std::string m_defaultStartConfiguration = "P1p1P1p1P1p1P1p1P1p1P1p1P1p1P1p1P1p1P1p1P1p1P1p1P1p1P1p1P1p1P1p1";
         //private const string m_defaultStartConfiguration = "rnbkqbnrpppppppp32PPPPPPPPPRNBKQBNR";
 
@@ -44,16 +45,12 @@ namespace CppChess
         friend std::ostream& operator << (std::ostream& stream, const Board& board);
 
     private:
-        void Initialize(std::string startConfiguration);
-        void LoadConfiguration(std::string configuration);
+        void Initialize(const std::string& startConfiguration);
+        void LoadConfiguration(const std::string& configuration);
         
         static ChessPiece GetPiece(char identifier);
         static char GetPieceRepresentationString(ChessPiece chessPiece);
         static char GetPieceType(ChessPiece chessPiece);
-
-        static bool IsDigit(char c);
-        static char ToLower(char c);
-        static char ToUpper(char c);
 	};
 }
 

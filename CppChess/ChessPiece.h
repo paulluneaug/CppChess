@@ -1,8 +1,8 @@
 #pragma once
 namespace CppChess 
 {
-	struct ChessPiece
-	{
+    struct ChessPiece
+    {
         #pragma region Static Fields and Methods
     public :
         [[nodiscard]] __forceinline static const ChessPiece None()   { return s_none; }
@@ -118,6 +118,6 @@ namespace CppChess
 
         [[nodiscard]] __forceinline ChessPiece operator >>(const int offset) const;
         [[nodiscard]] __forceinline ChessPiece operator <<(const int offset) const;
-	};
+    };
 }
 
